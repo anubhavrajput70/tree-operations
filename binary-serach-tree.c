@@ -10,7 +10,7 @@ node* insert(node*,int);
 void inorder(node*);
 void preoder(node*);
 void postorder(node*);
-void del(node*,int);
+node* del(node*,int);
 node* largest(node*);
 int height(node*);
 node* smallest(node*);
@@ -149,14 +149,14 @@ postorder(tree->right);
 printf(" %d",tree->data);
 }
 }
-void del(node* tree,int a)
+node* del(node* tree,int a)
 {
 if(tree==NULL)
-printf("node not found in the tree");
+return tree;
 else if(a<tree->data)
-del(tree->left,a);
+tree->left=del(tree->left,a);
 else if(a>tree->data)
-del(tree->right,a);
+tree->right=del(tree->right,a);
 else if(tree->left!=NULL&&tree->right!=NULL)
 {
 temp=largest(tree->left);
@@ -174,6 +174,7 @@ else
 tree=tree->right;
 free(temp);
 }
+return tree;
 }
 node* largest(node* tree)
 {
